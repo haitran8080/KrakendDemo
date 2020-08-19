@@ -1,0 +1,11 @@
+FC_ENABLE=1 \
+FC_SETTINGS="$PWD/settings" \
+FC_PARTIALS="$PWD/partials" \
+FC_OUT=out.json \
+krakend check -d -c "$PWD/krakend.json"
+
+FC_ENABLE=1 \
+FC_SETTINGS="$PWD/settings" \
+FC_PARTIALS="$PWD/partials" \
+FC_OUT=out.json \
+krakend run -d -c "$PWD/krakend.json"

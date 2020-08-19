@@ -1,0 +1,24 @@
+{
+  "endpoint": "krakend/login",
+  "method": "POST",
+  "extra_config": {},
+  "output_encoding": "no-op",
+  "concurrent_calls": 1,
+  "backend": [
+    {
+      "url_pattern": "/api/auth/login",
+      "encoding": "no-op",
+      "sd": "static",
+      "extra_config": {
+        "github.com/devopsfaith/krakend/http": {
+            "return_error_details": "alias"
+        }
+      },
+      "method": "POST",
+      "host": [
+        "http://localhost:8000"
+      ],
+      "disable_host_sanitize": false
+    }
+  ]
+}

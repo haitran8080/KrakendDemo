@@ -1,0 +1,33 @@
+{
+  "port": 8080,
+  "default_hosts": [
+    "https://catalog-api-01.srv",
+    "https://catalog-api-02.srv",
+    "https://catalog-api-03.srv"
+  ],
+  "extra_config": {
+    "github_com/devopsfaith/krakend-cors": {
+      "allow_origins": ["http*"],
+      "allow_headers": [
+        "Origin",
+        "Authorization",
+        "Content-Type",
+        "Accept",
+        "X-Auth-Token",
+        "Referer",
+        "User-Agent"
+      ],
+      "expose_headers": ["Content-Type", "Content-Length"],
+      "max_age": "12h",
+      "allow_methods": [
+        "GET",
+        "HEAD",
+        "POST",
+        "PUT",
+        "DELETE",
+        "PATCH",
+        "OPTIONS"
+      ]
+    }
+  }
+}

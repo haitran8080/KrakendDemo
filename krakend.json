@@ -1,0 +1,77 @@
+{
+  "version": 2,
+  "extra_config": {{ marshal .service.extra_config }},
+  "timeout": "10000ms",
+  "cache_ttl": "300s",
+  "output_encoding": "no-op",
+  "name": "laravel demo krakend",
+  "port": {{ .service.port }},
+  "endpoints": [
+    {{ range .endpoint.example_group }}
+    {
+    "endpoint": "{{ .endpoint }}",
+    "headers_to_pass": ["Authorization"],
+    "method": "{{ .method }}",
+    "extra_config": {},
+    "output_encoding": "no-op",
+    "concurrent_calls": 1,
+    "backend": [
+        {
+            "url_pattern": "{{ .url_pattern }}",
+            "encoding": "no-op",
+            "sd": "static",
+            "extra_config": {
+              "github.com/devopsfaith/krakend/http": {
+                "return_error_details": "alias"
+              }
+            },
+            "method": "{{ .method_backend }}",
+            "host": "{{ .host }}",
+            "disable_host_sanitize": false
+        }
+    ]
+    }, {{ end }}
+    {{ include "endpoint_temp.tmpl" }}
+    ,{
+      "endpoint": "krakend/products/{product_id}",
+      "headers_to_pass": ["Authorization"],
+      "method": "GET",
+      "extra_config": {},
+      "output_encoding": "json",
+      "concurrent_calls": 1,
+      "backend": [
+          {
+              "url_pattern": "/api/products/{product_id}",
+              "encoding": "json",
+              "sd": "static",
+              "extra_config": {
+                "github.com/devopsfaith/krakend/http": {
+                  "return_error_details": "alias"
+                }
+              },
+              "method": "GET",
+              "host": ["http://localhost:8000"],
+              "disable_host_sanitize": false,
+              "is_collection": true,
+              "mapping": {
+                "collection": "myposts"
+              }
+          },
+          {
+            "url_pattern": "/api/user",
+            "encoding": "json",
+            "sd": "static",
+            "extra_config": {
+              "github.com/devopsfaith/krakend/http": {
+                "return_error_details": "alias"
+              }
+            },
+            "method": "GET",
+            "host": ["http://localhost:8000"],
+            "disable_host_sanitize": false,
+            "group": "user_data"
+        }
+      ]
+      }
+  ]
+}

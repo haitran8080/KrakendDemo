@@ -1,0 +1,25 @@
+{
+  "example_group": [
+    {
+      "endpoint": "krakend/products",
+      "method": "GET",
+      "url_pattern": "/api/products",
+      "method_backend": "GET",
+      "host": ["http://localhost:8000"]
+    },
+    {
+      "endpoint": "krakend/delete/{product_id}",
+      "method": "DELETE",
+      "url_pattern": "/api/products/{product_id}",
+      "method_backend": "DELETE",
+      "host": ["http://localhost:8000"]
+    },
+    {
+      "endpoint": "krakend/edit/{product_id}",
+      "method": "PUT",
+      "url_pattern": "/api/products/{product_id}",
+      "method_backend": "PUT",
+      "host": ["http://localhost:8000"]
+    }
+  ]
+}
